@@ -16,4 +16,4 @@ message HelloRequest {
 // HelloReply 响应结构
 message HelloReply {
     string message = 1;
-}
+}  
