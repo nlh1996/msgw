@@ -32,7 +32,9 @@ func Init() {
 	s := grpc.NewServer(grpc.Creds(creds))
 
 	// 注册服务
+	proto.RegisterHelloServer(s, controller.HelloService)
 	proto.RegisterStreamServiceServer(s, controller.StreamService)
+
 	log.Println("Listen on " + address + " with TLS.")
 
 	if err := s.Serve(listen); err != nil {

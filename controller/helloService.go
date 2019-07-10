@@ -4,11 +4,10 @@ import (
 	"context"
 	"fmt"
 	"go-gateway/proto"
-	"log"
 
-	"github.com/micro/go-micro/metadata"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/metadata"
 )
 
 // 定义helloService并实现约定的接口
@@ -19,7 +18,7 @@ var HelloService = new(helloService)
 
 func (h *helloService) SayHello(ctx context.Context, req *proto.HelloRequest) (*proto.HelloReply, error) {
 	// 解析metadata中的信息并验证
-	md, ok := metadata.FromContext(ctx)
+	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
 		return nil, grpc.Errorf(codes.Unauthenticated, "无Token认证信息")
 	}
@@ -29,11 +28,11 @@ func (h *helloService) SayHello(ctx context.Context, req *proto.HelloRequest) (*
 	)
 
 	if val, ok := md["appid"]; ok {
-		log.Println(val[0])
+		appid = val[0]
 	}
 
 	if val, ok := md["appkey"]; ok {
-		log.Println(val[0])
+		appkey = val[0]
 	}
 
 	if appid != "101010" || appkey != "i am key" {
