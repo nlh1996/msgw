@@ -37,15 +37,15 @@ func StreamClientInit() {
 
 	client := proto.NewStreamServiceClient(conn)
 
-	req := &proto.StreamRequest{Pt: &proto.StreamPoint{Name: "gRPC Stream Client: List", Value: 2018}}
+	req := &proto.StreamRequest{Pt: &proto.StreamPoint{Name: "gRPC Stream Client: List", Value: 0}}
 	err = printLists(client, req)
 	errNotNil("printLists", err)
 
-	req = &proto.StreamRequest{Pt: &proto.StreamPoint{Name: "gRPC Stream Client: Record", Value: 2018}}
+	req = &proto.StreamRequest{Pt: &proto.StreamPoint{Name: "gRPC Stream Client: Record", Value: 0}}
 	err = printRecord(client, req)
 	errNotNil("printRecord", err)
 
-	req = &proto.StreamRequest{Pt: &proto.StreamPoint{Name: "gRPC Stream Client: Route", Value: 2018}}
+	req = &proto.StreamRequest{Pt: &proto.StreamPoint{Name: "gRPC Stream Client: Route", Value: 0}}
 	err = printRoute(client, req)
 	errNotNil("printRoute", err)
 }
@@ -72,7 +72,7 @@ func printLists(client proto.StreamServiceClient, req *proto.StreamRequest) erro
 		}
 		log.Printf("resp: pj.name: %s, pt.value: %d", resp.Pt.Name, resp.Pt.Value)
 	}
-
+	log.Println("stream end!!!")
 	return nil
 }
 
