@@ -24,8 +24,8 @@ func StreamClientInit() {
 		opts = append(opts, grpc.WithInsecure())
 	}
 
-	// 使用自定义认证
-	opts = append(opts, grpc.WithPerRPCCredentials(new(customCredential)))
+	// // 使用自定义认证
+	// opts = append(opts, grpc.WithPerRPCCredentials(new(customCredential)))
 
 	// 连接
 	conn, err := grpc.Dial(address, opts...)

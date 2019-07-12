@@ -1,6 +1,8 @@
 package controller
 
-import "go-gateway/proto"
+import (
+	"go-gateway/proto"
+)
 
 type streamService struct{}
 

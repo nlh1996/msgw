@@ -31,7 +31,6 @@ func (c customCredential) RequireTransportSecurity() bool {
 	if openTLS {
 		return true
 	}
-
 	return false
 }
 
@@ -61,12 +60,11 @@ func Init() {
 	defer conn.Close()
 
 	// 初始化客户端
-	c := proto.NewHelloClient(conn)
+	client := proto.NewHelloClient(conn)
 
+	req := &proto.HelloRequest{Name: "gRPC"}
 	// 调用方法
-	req := new(proto.HelloRequest)
-	req.Name = "gRPC"
-	res, err := c.SayHello(context.Background(), req)
+	res, err := client.SayHello(context.Background(), req)
 	if err != nil {
 		log.Fatalln(err)
 	}
