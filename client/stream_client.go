@@ -70,7 +70,7 @@ func printLists(client proto.StreamServiceClient, req *proto.StreamRequest) erro
 		if err != nil {
 			return err
 		}
-		log.Printf("resp: pj.name: %s, pt.value: %d", resp.Pt.Name, resp.Pt.Value)
+		log.Printf("resp: %s, pt.value: %d", resp.Pt.Name, resp.Pt.Value)
 	}
 	log.Println("stream end!!!")
 	return nil
@@ -83,3 +83,4 @@ func printRecord(client proto.StreamServiceClient, req *proto.StreamRequest) err
 func printRoute(client proto.StreamServiceClient, req *proto.StreamRequest) error {
 	return nil
 }
+

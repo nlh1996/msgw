@@ -32,6 +32,6 @@ import (
 // }
 
 func main() {
-	go client.StreamClientInit()
+	go client.Init()
 	server.Init()
 }

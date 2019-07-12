@@ -2,6 +2,7 @@ package server
 
 import (
 	"go-gateway/controller"
+	"go-gateway/middleware"
 	"go-gateway/proto"
 	"log"
 	"net"
@@ -28,8 +29,13 @@ func Init() {
 		log.Fatalf("Failed to generate credentials %v", err)
 	}
 
+	var opts []grpc.ServerOption
+	opts = append(opts, grpc.Creds(creds))
+	// 添加中间件，拦截验证token
+	opts = append(opts, grpc.UnaryInterceptor(middleware.Auth()))
+
 	// 实例化grpc Server
-	s := grpc.NewServer(grpc.Creds(creds))
+	s := grpc.NewServer(opts...)
 
 	// 注册服务
 	proto.RegisterHelloServer(s, controller.HelloService)
