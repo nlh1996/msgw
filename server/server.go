@@ -33,6 +33,7 @@ func Init() {
 	opts = append(opts, grpc.Creds(creds))
 	// 添加中间件，拦截验证token
 	opts = append(opts, grpc.UnaryInterceptor(middleware.AuthToken()))
+	opts = append(opts, grpc.StreamInterceptor(middleware.StreamAuth()))
 
 	// 实例化grpc Server
 	s := grpc.NewServer(opts...)

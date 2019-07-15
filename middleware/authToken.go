@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"context"
+	"log"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -34,5 +35,13 @@ func AuthToken() grpc.UnaryServerInterceptor {
 			return nil, err
 		}
 		return handler(ctx, req)
+	}
+}
+
+// StreamAuth .
+func StreamAuth() grpc.StreamServerInterceptor {
+	return func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
+		log.Println("拦截成功")
+		return handler(srv, ss)
 	}
 }
