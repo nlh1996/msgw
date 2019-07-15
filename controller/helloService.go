@@ -13,6 +13,6 @@ var HelloService = new(helloService)
 
 func (h *helloService) SayHello(ctx context.Context, req *pb.HelloRequest) (*pb.HelloReply, error) {
 	resp := new(pb.HelloReply)
-	resp.Message = "Hello" + req.Name + "."
+	resp.Message = "Hello " + req.Name + "."
 	return resp, nil
 }

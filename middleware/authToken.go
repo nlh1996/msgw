@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"context"
-	"log"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -12,7 +11,6 @@ import (
 // AuthToken .
 func AuthToken() grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
-		log.Println("成功拦截！！！")
 		md, ok := metadata.FromIncomingContext(ctx)
 		if !ok {
 			err := grpc.Errorf(codes.Unauthenticated, "无Token认证信息")
