@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"go-gateway/proto"
+	"go-gateway/utils"
 	"log"
 
 	"google.golang.org/grpc"
@@ -20,14 +21,14 @@ const (
 // customCredential 自定义认证
 type customCredential struct{}
 
-func (c customCredential) GetRequestMetadata(ctx context.Context, uri ...string) (map[string]string, error) {
+func (c *customCredential) GetRequestMetadata(ctx context.Context, uri ...string) (map[string]string, error) {
 	return map[string]string{
 		"appid":  "101010",
 		"appkey": "i am key",
 	}, nil
 }
 
-func (c customCredential) RequireTransportSecurity() bool {
+func (c *customCredential) RequireTransportSecurity() bool {
 	if openTLS {
 		return true
 	}
@@ -64,7 +65,7 @@ func Init() {
 
 	req := &proto.HelloRequest{Name: "gRPC"}
 	// 调用方法
-	res, err := client.SayHello(context.Background(), req)
+	res, err := client.SayHello(utils.GetCtx(), req)
 	if err != nil {
 		log.Fatalln(err)
 	}
