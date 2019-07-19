@@ -1,4 +1,4 @@
-package client
+package main
 
 import (
 	"context"
@@ -10,8 +10,16 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
+const (
+	//gRPC服务地址
+	address = "127.0.0.1:11000"
+
+	//是否开启TLS认证
+	openTLS = true
+)
+
 // StreamClientInit .
-func StreamClientInit() {
+func main() {
 	var opts []grpc.DialOption
 	if openTLS {
 		// TLS连接
