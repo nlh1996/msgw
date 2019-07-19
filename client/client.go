@@ -1,4 +1,4 @@
-package client
+package main
 
 import (
 	"context"
@@ -36,7 +36,7 @@ func (c *customCredential) RequireTransportSecurity() bool {
 }
 
 // Init .
-func Init() {
+func main() {
 	var opts []grpc.DialOption
 	if openTLS {
 		// TLS连接

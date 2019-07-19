@@ -1,4 +1,4 @@
-package server
+package main
 
 import (
 	"go-gateway/controller"
@@ -17,7 +17,7 @@ const (
 )
 
 // Init .
-func Init() {
+func main() {
 	listen, err := net.Listen("tcp", address)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
