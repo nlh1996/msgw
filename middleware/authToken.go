@@ -41,10 +41,12 @@ func AuthToken() grpc.UnaryServerInterceptor {
 // StreamAuth .
 func StreamAuth() grpc.StreamServerInterceptor {
 	return func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
-		serverName, ok := grpc.MethodFromServerStream(ss)		
-		if ok {
-			log.Println("拦截成功,请求服务的名称为：" + serverName)
+		serverName, ok := grpc.MethodFromServerStream(ss)
+		if !ok {
+			err := grpc.Errorf(codes.Unauthenticated, "转发失败！")
+			return err
 		}
+		log.Println(serverName)
 		return handler(srv, ss)
 	}
 }

@@ -49,13 +49,13 @@ func main() {
 	err = printLists(client, req)
 	errNotNil("printLists", err)
 
-	req = &proto.StreamRequest{Pt: &proto.StreamPoint{Name: "gRPC Stream Client: Record", Value: 0}}
-	err = printRecord(client, req)
-	errNotNil("printRecord", err)
+	// req = &proto.StreamRequest{Pt: &proto.StreamPoint{Name: "gRPC Stream Client: Record", Value: 0}}
+	// err = printRecord(client, req)
+	// errNotNil("printRecord", err)
 
-	req = &proto.StreamRequest{Pt: &proto.StreamPoint{Name: "gRPC Stream Client: Route", Value: 0}}
-	err = printRoute(client, req)
-	errNotNil("printRoute", err)
+	// req = &proto.StreamRequest{Pt: &proto.StreamPoint{Name: "gRPC Stream Client: Route", Value: 0}}
+	// err = printRoute(client, req)
+	// errNotNil("printRoute", err)
 }
 
 func errNotNil (funcName string, err error) {

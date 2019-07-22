@@ -40,7 +40,7 @@ func (s *streamService) Record(stream pb.StreamService_RecordServer) error {
 }
 
 func (s *streamService) Route(stream pb.StreamService_RouteServer) error {
-	var n int32 
+	var n int32
 	for {
 		err := stream.Send(&pb.StreamResponse{
 			Pt: &pb.StreamPoint{

@@ -2,8 +2,7 @@ package main
 
 import (
 	"go-gateway/controller"
-	"go-gateway/middleware"
-	"go-gateway/utils"
+	"go-gateway/proto"
 	"log"
 	"net"
 
@@ -13,7 +12,7 @@ import (
 
 const (
 	// gRPC服务地址
-	address = "127.0.0.1:11000"
+	address = "127.0.0.1:12000"
 )
 
 // Init .
@@ -31,17 +30,12 @@ func main() {
 
 	var opts []grpc.ServerOption
 	opts = append(opts, grpc.Creds(creds))
-	// 添加中间件，拦截验证token
-	opts = append(opts, grpc.UnaryInterceptor(middleware.AuthToken()))
-	opts = append(opts, grpc.StreamInterceptor(middleware.StreamAuth()))
-
-	//自定义编解码
-	opts = append(opts, grpc.CustomCodec(utils.Codec()))
-
-	opts = append(opts, grpc.UnknownServiceHandler(controller.Handler))
 
 	// 实例化grpc Server
 	s := grpc.NewServer(opts...)
+
+	// 注册服务
+	proto.RegisterStreamServiceServer(s, controller.StreamService)
 
 	log.Println("Listen on " + address + " with TLS.")
 
